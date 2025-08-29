@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text to PDF Converter - engineering_rule</title>
+
+  <!-- pdfmake CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+  <style>
+    body {
+      background: #eee;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header/Navbar */
+    header {
+      background: #eee;
+      box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+      color: #555;
+      letter-spacing: 2px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #555;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: blue;
+    }
+
+    /* Main Heading */
+    .main-heading {
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px;
+      background-image: linear-gradient(90deg, blue, red);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.5s ease-in-out;
+    }
+    .main-heading:hover {
+      transform: scale(1.05);
+    }
+
+    /* Converter Card */
+    .neumorphic-card {
+      background: #eee;
+      border-radius: 20px;
+      box-shadow: 10px 10px 20px #a3b1c6, -10px -10px 20px #ffffff;
+      margin: auto;
+      padding: 30px;
+      max-width: 700px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .neumorphic-textarea {
+      border: none;
+      outline: none;
+      margin: 15px 0;
+      padding: 15px;
+      width: 100%;
+      height: 300px;
+      border-radius: 15px;
+      font-size: 16px;
+      resize: none;
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+      background: #eee;
+    }
+
+    .neumorphic-button {
+      border: none;
+      outline: none;
+      margin-top: 20px;
+      padding: 15px;
+      width: 60%;
+      max-width: 250px;
+      border-radius: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #eee;
+      box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+      transition: all 0.2s ease-in-out;
+    }
+    .neumorphic-button:active {
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      background: #eee;
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-heading {
+        font-size: 26px;
+      }
+      .neumorphic-textarea {
+        height: 200px;
+        font-size: 14px;
+      }
+      .neumorphic-button {
+        width: 80%;
+      }
+    }
+    @media (max-width: 480px) {
+      .main-heading {
+        font-size: 22px;
+      }
+      .neumorphic-textarea {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="brand">engineering_rule</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Heading -->
+  <div class="main-heading">Text to PDF Converter</div>
+
+  <!-- Converter Card -->
+  <div class="neumorphic-card">
+    <textarea id="text" class="neumorphic-textarea" placeholder="Enter or paste text here..."></textarea>
+    <button class="neumorphic-button" onclick="generatePDF()">Convert to PDF</button>
+    <br>
+    <a href="index.html"><button class="neumorphic-button">⬅ Back to Home</button></a>
+  </div>
+
+  <!-- Footer -->
+  <footer>© 2025 engineering_rule | All Rights Reserved</footer>
+
+  <script>
+    function generatePDF() {
+      const text = document.getElementById("text").value.trim();
+      if (!text) {
+        alert("Please enter some text first!");
+        return;
+      }
+      const docDefinition = {
+        content: [{ text: text, fontSize: 12 }],
+        header: {
+          text: 'Text to PDF Converter - engineering_rule',
+          alignment: 'center',
+          fontSize: 10,
+          margin: [0, 10, 0, 10]
+        },
+        footer: function(currentPage, pageCount) {
+          return {
+            text: currentPage.toString() + ' / ' + pageCount,
+            alignment: 'center',
+            fontSize: 10,
+            margin: [0, 10, 0, 0]
+          };
+        },
+        pageMargins: [40, 60, 40, 60]
+      };
+      pdfMake.createPdf(docDefinition).download("output.pdf");
+    }
+  </script>
+</body>
+</html>

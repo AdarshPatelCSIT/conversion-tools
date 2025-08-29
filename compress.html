@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compress Image - engineering_rule</title>
+
+  <style>
+    body {
+      background: #eee;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header/Navbar */
+    header {
+      background: #eee;
+      box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+      color: #555;
+      letter-spacing: 2px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #555;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: blue;
+    }
+
+    /* Main Heading */
+    .main-heading {
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+      margin: 30px 20px;
+      background-image: linear-gradient(90deg, blue, red);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.5s ease-in-out;
+    }
+    .main-heading:hover {
+      transform: scale(1.05);
+    }
+
+    /* Converter Card */
+    .neumorphic-card {
+      background: #eee;
+      border-radius: 20px;
+      padding: 30px;
+      margin: 20px auto;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 10px 10px 20px #a3b1c6, -10px -10px 20px #ffffff;
+    }
+    input[type="file"], input[type="range"] {
+      margin: 15px 0;
+    }
+    .neumorphic-button {
+      border: none;
+      outline: none;
+      margin-top: 20px;
+      padding: 15px;
+      width: 60%;
+      max-width: 250px;
+      border-radius: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #eee;
+      box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+      transition: all 0.2s ease-in-out;
+    }
+    .neumorphic-button:active {
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      margin: 15px auto;
+      padding: 10px 20px;
+      border-radius: 15px;
+      background: #eee;
+      box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+      font-weight: bold;
+      text-decoration: none;
+      color: #333;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      color: blue;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      background: #eee;
+      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-heading {
+        font-size: 26px;
+      }
+      .neumorphic-button {
+        width: 80%;
+      }
+    }
+    @media (max-width: 480px) {
+      .main-heading {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="brand">engineering_rule</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Heading -->
+  <div class="main-heading">Compress Image</div>
+
+  <!-- Converter Card -->
+  <div class="neumorphic-card">
+    <input type="file" id="images" multiple accept="image/*"><br>
+    <label for="quality">Compression Quality: <span id="qualityValue">0.7</span></label><br>
+    <input type="range" id="quality" min="0.1" max="1" step="0.1" value="0.7" oninput="updateQuality()">
+    <button class="neumorphic-button" onclick="compressImages()">Compress & Download</button>
+  </div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-btn">← Back to Home</a>
+
+  <!-- Footer -->
+  <footer>© 2025 engineering_rule | All Rights Reserved</footer>
+
+  <script>
+    function updateQuality() {
+      document.getElementById("qualityValue").innerText = document.getElementById("quality").value;
+    }
+
+    function compressImages() {
+      const files = document.getElementById("images").files;
+      const quality = parseFloat(document.getElementById("quality").value);
+
+      if (files.length === 0) {
+        alert("Please select at least one image!");
+        return;
+      }
+
+      Array.from(files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const img = new Image();
+          img.onload = function() {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            canvas.toBlob(function(blob) {
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(blob);
+              link.download = "compressed_" + file.name;
+              link.click();
+            }, "image/jpeg", quality);
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+</body>
+</html>

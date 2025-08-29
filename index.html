@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>engineering_rule - Conversion Tools</title>
+  <style>
+    body {
+      background: #eee;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #444; /* better readability on 3D */
+    }
+
+    /* Navbar */
+    header {
+      background: #eee;
+      box-shadow: 5px 5px 10px #a3b1c6,
+                  -5px -5px 10px #ffffff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #333;
+    }
+    nav a {
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: blue;
+    }
+
+    /* Main */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 40px;
+      background-image: linear-gradient(90deg, blue, red);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .neumorphic-card {
+      background: #eee;
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 10px 10px 20px #a3b1c6,
+                  -10px -10px 20px #ffffff;
+      transition: transform 0.2s ease-in-out;
+    }
+    .neumorphic-card:hover {
+      transform: scale(1.05);
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #444;
+    }
+    .neumorphic-button {
+      border: none;
+      outline: none;
+      padding: 12px;
+      width: 80%;
+      border-radius: 15px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #eee;
+      box-shadow: 5px 5px 10px #a3b1c6,
+                  -5px -5px 10px #ffffff;
+      transition: all 0.2s ease-in-out;
+      color: #333;
+    }
+    .neumorphic-button:active {
+      box-shadow: inset 5px 5px 10px #a3b1c6,
+                  inset -5px -5px 10px #ffffff;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+      box-shadow: -5px -5px 10px #ffffff,
+                  5px 5px 10px #a3b1c6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .section-title {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="brand">engineering_rule</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="section-title">Conversion Tools</div>
+    <div class="cards">
+      <div class="neumorphic-card">
+        <div class="card-title">Text → PDF</div>
+        <a href="text2pdf.html">
+          <button class="neumorphic-button">Open Tool</button>
+        </a>
+      </div>
+      <div class="neumorphic-card">
+        <div class="card-title">Image → PDF</div>
+        <a href="img2pdf.html">
+          <button class="neumorphic-button">Open Tool</button>
+        </a>
+      </div>
+      <div class="neumorphic-card">
+        <div class="card-title">Compress Image</div>
+        <a href="compress.html">
+          <button class="neumorphic-button">Open Tool</button>
+        </a>
+      </div>
+      <div class="neumorphic-card">
+        <div class="card-title">Word → PDF</div>
+        <a href="word2pdf.html">
+          <button class="neumorphic-button">Open Tool</button>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2024 engineering_rule. All rights reserved.
+  </footer>
+
+</body>
+</html>
