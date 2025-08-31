@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text to PDF Converter - engineering_rule</title>
+  <title>Text to PDF Converter</title>
 
   <!-- pdfmake CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
@@ -20,41 +20,12 @@
       min-height: 100vh;
     }
 
-    /* Header/Navbar */
-    header {
-      background: #eee;
-      box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .brand {
-      font-size: 22px;
-      font-weight: bold;
-      color: #555;
-      letter-spacing: 2px;
-    }
-    nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #555;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: blue;
-    }
-
     /* Main Heading */
     .main-heading {
       font-size: 32px;
       font-weight: bold;
       text-align: center;
-      margin: 20px;
+      margin: 30px 20px;
       background-image: linear-gradient(90deg, blue, red);
       background-clip: text;
       -webkit-background-clip: text;
@@ -111,16 +82,6 @@
       box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
     }
 
-    /* Footer */
-    footer {
-      margin-top: auto;
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
-      background: #eee;
-      box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
-    }
-
     /* Responsive */
     @media (max-width: 768px) {
       .main-heading {
@@ -145,15 +106,6 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="brand">engineering_rule</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="#">Services</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
 
   <!-- Main Heading -->
   <div class="main-heading">Text to PDF Converter</div>
@@ -166,9 +118,6 @@
     <a href="index.html"><button class="neumorphic-button">⬅ Back to Home</button></a>
   </div>
 
-  <!-- Footer -->
-  <footer>© 2025 engineering_rule | All Rights Reserved</footer>
-
   <script>
     function generatePDF() {
       const text = document.getElementById("text").value.trim();
@@ -178,20 +127,6 @@
       }
       const docDefinition = {
         content: [{ text: text, fontSize: 12 }],
-        header: {
-          text: 'Text to PDF Converter - engineering_rule',
-          alignment: 'center',
-          fontSize: 10,
-          margin: [0, 10, 0, 10]
-        },
-        footer: function(currentPage, pageCount) {
-          return {
-            text: currentPage.toString() + ' / ' + pageCount,
-            alignment: 'center',
-            fontSize: 10,
-            margin: [0, 10, 0, 0]
-          };
-        },
         pageMargins: [40, 60, 40, 60]
       };
       pdfMake.createPdf(docDefinition).download("output.pdf");
